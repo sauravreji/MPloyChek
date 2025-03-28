@@ -5,15 +5,13 @@ const bodyParser = require('body-parser');
 const User = require('./models/User');
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:4200' })); // Allow Angular origin
+app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(bodyParser.json());
 
-// MongoDB Atlas connection with error handling
 mongoose.connect('mongodb+srv://sauravkreji:GYRAH53ZLpSR9YB4@cluster0.81y7c.mongodb.net/user-authentication?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Login endpoint
 app.post('/api/login', async (req, res) => {
   console.log('Login request received:', req.body);
   const { userId, password } = req.body;
@@ -30,7 +28,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Get users endpoint
 app.get('/api/users', async (req, res) => {
   console.log('Users request received with delay:', req.query.delay);
   const { delay } = req.query;
@@ -46,7 +43,6 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-// Add user endpoint
 app.post('/api/users', async (req, res) => {
   console.log('Add user request received:', req.body);
   try {
@@ -59,6 +55,5 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
-// Start server
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
