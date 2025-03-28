@@ -1,0 +1,88 @@
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+    <div class="w-full max-w-2xl p-6 bg-gray-800 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-semibold text-white mb-2">
+        Welcome, {{userService.currentUser?.userId}}
+      </h2>
+      <p class="text-xl mb-6 text-white">
+        Role: 
+        <span class="inline-block px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg">
+          {{userService.currentUser?.role}}
+        </span>
+      </p>
+  
+      <h3 class="text-xl font-semibold text-white mb-4">Users and Admins</h3>
+      <mat-table [dataSource]="users" class="bg-gray-800 rounded-lg">
+        <ng-container matColumnDef="userId">
+          <mat-header-cell *matHeaderCellDef class="text-gray-200 font-semibold bg-gray-700">User ID</mat-header-cell>
+          <mat-cell *matCellDef="let user" class="text-gray-100">{{user.userId}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef class="text-gray-200 font-semibold bg-gray-700">Role</mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <span 
+              [ngClass]="{
+                'text-blue-400': user.role === 'Admin',
+                'text-gray-300': user.role === 'User' || user.role === 'General User'
+              }"
+              class="font-medium"
+            >
+              {{user.role}}
+            </span>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef class="text-gray-200 font-semibold bg-gray-700">Status</mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <span 
+              [ngClass]="{
+                'bg-blue-500 text-white': user.role === 'Admin',
+                'bg-gray-500 text-gray-100': user.role === 'User' || user.role === 'General User'
+              }"
+              class="px-2 py-1 rounded-full text-xs"
+            >
+              {{ user.role === 'Admin' ? 'Active' : 'Standard' }}
+            </span>
+          </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-700"></mat-header-row>
+        <mat-row 
+          *matRowDef="let row; columns: displayedColumns;" 
+          class="border-b border-gray-500 hover:bg-gray-700 transition duration-200"
+        ></mat-row>
+      </mat-table>
+  
+      <div *ngIf="userService.currentUser?.role === 'Admin'" class="mt-6">
+        <h3 class="text-xl font-semibold text-white mb-4">Add User</h3>
+        <div class="space-y-4">
+          <mat-form-field class="w-full">
+            <input 
+                matInput 
+                [(ngModel)]="newUser.userId" 
+                placeholder="User ID"
+                class="w-full p-3 bg-gray-800 text-gray-100 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-400 transition duration-200"
+                style="color: white; caret-color: white;"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-full">
+            <input 
+              matInput 
+              [(ngModel)]="newUser.password" 
+              placeholder="Password" 
+              class="w-full p-3 bg-gray-800 text-gray-100 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-400 transition duration-200"
+              style="color: white; caret-color: white;"
+            />
+          </mat-form-field>
+          <button 
+            type="button"
+            (click)="addUser()" 
+            class="w-full p-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 focus:outline-none transition duration-200 transform hover:scale-102"
+          >
+            Add User
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

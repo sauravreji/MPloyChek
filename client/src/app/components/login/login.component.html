@@ -1,0 +1,45 @@
+<section class="relative z-10 flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="container mx-auto">
+        <div class="flex justify-center">
+            <div class="w-full max-w-sm p-6 bg-gray-800 rounded-xl shadow-lg transition-transform transform hover:scale-105">
+                <h3 class="mb-6 text-center text-2xl font-semibold text-white">
+                    Sign In
+                </h3>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-1" for="userId">User ID</label>
+                        <input 
+                            id="userId" 
+                            name="userId"
+                            matInput 
+                            [(ngModel)]="userId" 
+                            placeholder="Enter User ID" 
+                            class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition duration-200"
+                            required
+                        />
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-1" for="password">Password</label>
+                        <input 
+                            id="password" 
+                            name="password"
+                            matInput 
+                            type="password" 
+                            [(ngModel)]="password" 
+                            placeholder="Enter Password" 
+                            class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition duration-200"
+                            required
+                        />
+                    </div>
+                    <button 
+                        type="button"
+                        (click)="login()" 
+                        class="w-full p-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 focus:outline-none transition duration-200 transform hover:scale-102"
+                    >
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
